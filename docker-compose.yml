@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  rtspatt:
+    image: ullaakut/rtspatt
+    network_mode: host
+    restart: always
+
+  rtsptoweb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: host
+    volumes:
+      - ./config.json:/config/config.json
+      - ./start.sh:/start.sh
+    restart: always
+    depends_on:
+      - rtspatt
